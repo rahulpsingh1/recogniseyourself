@@ -16,7 +16,7 @@ except OSError:
     exit(0)
 
 
-face_cascade = cv2.CascadeClassifier(r'C:\Users\RAIDEN\Desktop\face_reco_project\haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 cam = cv2.VideoCapture(0)
 cv2.namedWindow("test")
