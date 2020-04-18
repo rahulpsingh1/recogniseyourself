@@ -1,6 +1,6 @@
 Image Recognition project, the neurons are trained on 6 people
 
-flask.py
+main.py
 
 Step 1. install all required modules using pip install "module_name" ex- flask, keras, imutils, cv2
 
