@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Recognise Yourself</title>
+  </head>
+  <body>
+    <h1>Security Check, Kindly be in front of camera and click submit</h1>
+    <img src="{{ url_for('video_feed') }}">
+    <form action = "http://localhost:8000/result" method = "post">
+         <p>Enter Name:</p>
+         <p><input type = "text" name = "nm" /></p>
+         <p><input type = "submit" value = "submit" /></p>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Recognise Yourself</title>
+  </head>
+  <body>
+  	{% if pred==name %}
+      <h1>Hello {{ name }} Welcome!!!</h1>
+      <h2>You May Enter</h2>
+
+    {% else %}
+      <h1>Un-Recognised Personnel.. Please Leave.! </h1>
+      <h2>Incorrect Name or face Given. </h2>
+
+    {% endif %}
+
+    <img src="{{image_name}}"></img>
+
+    
+    
+  </body>
+</html>
+
