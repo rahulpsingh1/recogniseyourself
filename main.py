@@ -8,7 +8,8 @@ from flask import Flask, flash
 from flask import render_template
 from numpy import loadtxt
 from keras.models import load_model
-from facereco import recognise as reco
+from facereco import recognise
+from facereco import takeImageWindow as imgwin
 import argparse
 import datetime
 import imutils
@@ -21,22 +22,27 @@ app = Flask(__name__)
 vs = VideoStream(src=0).start()
 time.sleep(2.0)
 
+reco = recognise()
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
 
-
 def generate():
 	
-	global frame, passframe
+	#global frame, passframe
+
 
 	# loop over frames from the output stream
 	while True:
 		
 		frame = vs.read()
-		passframe = frame
+
+		cv2.imwrite("flaskImage.jpg", frame)
+
+		#frame = imgwin.picFromCamera()
+		#passframe = frame
 		if frame is None:
 			continue
 
@@ -64,12 +70,18 @@ def video_feed():
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
 	if request.method == 'POST':
-		
+		time.sleep(5.0)
+
+		frame = cv2.imread("flaskImage.jpg")
+
+		if(frame.any()==None):
+			return render_template("index.html")
+
 		passframe = reco.face(frame)
 		try:
 			if passframe == None:
 				flash('Cannot detect face. Kindly be steady and in front of camera and hit submit again.')
-				time.sleep(2.0)
+				time.sleep(10)
 
 				return render_template("index.html")
 		except:
