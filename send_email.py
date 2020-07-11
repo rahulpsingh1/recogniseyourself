@@ -27,7 +27,7 @@ class email:
 
         message.attach(MIMEText(body, "plain"))
 
-        filename = "compressed.jpg"
+        filename = "flaskImage.jpg"
 
         # Open image file in binary mode
         with open(filename, "rb") as attachment:

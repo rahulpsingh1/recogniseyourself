@@ -4,8 +4,8 @@
     <title>Recognise Yourself</title>
   </head>
   <body>
-    {% if pred==name %}
-      <h1>Hello {{ name }} Welcome!!!</h1>
+  	{% if pred==name %}
+      <h1>Hello {{ pred }} Welcome!!!</h1>
       <h2>You May Enter</h2>
 
     {% else %}
@@ -13,10 +13,8 @@
       <h2>Incorrect Name or face Given. </h2>
 
     {% endif %}
-    <h1>Hello {{ pred }} Welcome!!!</h1>
-    <h2>You May Enter</h2>
 
-    <img src="{{image_name}}"></img>
+    <img src="{{url_for('static', filename='FinalImg.jpg')}}"></img>
 
     
     

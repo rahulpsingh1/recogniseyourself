@@ -41,8 +41,6 @@ def generate():
 
 		cv2.imwrite("flaskImage.jpg", frame)
 
-		#frame = imgwin.picFromCamera()
-		#passframe = frame
 		if frame is None:
 			continue
 
@@ -70,33 +68,32 @@ def video_feed():
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
 	if request.method == 'POST':
-		time.sleep(5.0)
+		user = request.form["nm"]
+		user = user.lower()
+		time.sleep(2.0)
 
 		frame = cv2.imread("flaskImage.jpg")
 
-		if(frame.any()==None):
-			return render_template("index.html")
+		cv2.imwrite(".\static\FinalImg.jpg", frame)
+
 
 		passframe = reco.face(frame)
+
 		try:
 			if passframe == None:
 				flash('Cannot detect face. Kindly be steady and in front of camera and hit submit again.')
-				time.sleep(10)
+				time.sleep(5)
 
 				return render_template("index.html")
 		except:
 			pass
 
-		# filename = 'savedImage.jpg'
-		# cv2.imwrite(filename, frame) 
 
 		
 		
 		rec = reco.prediction(passframe)
 		rec = rec.lower()
-		
-		user = request.form["nm"]
-		user = user.lower()
+
 
 
 		return render_template("result.html",name = user,pred = rec, image_name=frame)
