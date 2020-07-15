@@ -1,18 +1,11 @@
-#to run- python main.py --ip 127.0.0.1 --port 8000
-
 #made in flask
 
 from imutils.video import VideoStream
 from flask import Response, url_for, redirect, request
 from flask import Flask, flash
 from flask import render_template
-from numpy import loadtxt
-from keras.models import load_model
 from facereco import recognise
-from facereco import takeImageWindow as imgwin
-import argparse
-import datetime
-import imutils
+#from facereco import takeImageWindow as imgwin
 import time
 import cv2
 
@@ -30,8 +23,6 @@ def index():
 
 
 def generate():
-	
-	#global frame, passframe
 
 
 	# loop over frames from the output stream
@@ -102,15 +93,10 @@ def result():
 
 
 if __name__ == "__main__":
-	ap = argparse.ArgumentParser()
-	ap.add_argument("-i", "--ip", type=str, required=True)
-	ap.add_argument("-o", "--port", type=int, required=True)
-	
-	args = vars(ap.parse_args())
 
-	app.secret_key = 'SECRET KEY'
 	# start the flask app
-	app.run(host=args["ip"], port=args["port"], debug=True, threaded=True, use_reloader=False)
+
+	app.run(host="127.0.0.1", port=8000, debug=True, threaded=True, use_reloader=False)
 
 
 vs.stop()

@@ -1,28 +1,28 @@
-Image Recognition project, the neurons are trained on 6 people
+Image Recognition project, the neurons are trained on 6 people.
 
 main.py
 
 Step 1. install all required modules using pip install "module_name" ex- flask, keras, imutils, cv2
 
-Step 2. Run main.py by python main.py --ip 127.0.0.1 --port 8000 on command line.
-	Here ip is the address and port 8000 is used for the app made using flask.
+Step 2. Run main.py by python main.py on command line.
+	Here ip "127.0.0.1" and port 8000 is where our flask server is running.
 
-Step 3. pre trained model with accuracy of is there thus the image input from webcam will be put to
-	the model to predict if the person is recognisable or not. here name is also a key factor.
+Step 3. pre trained model is loaded and thus the image input from webcam will be put to
+	the model to predict if the person is recognisable or not. here name provided by the user
+        is also a key factor.
 
  ===============================================================================================
 
 data collection---
 
-image dataset is created using create_Dataset.ipynb in this there is everything we need
+image dataset is created using create_Dataset.ipynb module. There is everything we need
 to create a face dataset of an individual.
 
 ================================================================================================
 
 convolution neural network model to recognise faces---
 
-Convolutional_Net.ipynb contains the code to fetch images from folders and input to the CNN model
-automatically.
+Convolutional_Net.ipynb contains the code to fetch images from folders and input to the CNN model.
 
 (128,128) image is used as an input to model.
 

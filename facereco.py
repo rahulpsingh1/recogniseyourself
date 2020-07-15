@@ -103,6 +103,11 @@ class recognise(faceblock):
         # put a constraint to accuracy more than 60% then found else not recognisable.
         t = np.argmax(t, axis=1)
 
+        """
+        if(t*100<60):
+            return None
+        """
+
         # model is trained on these people dataset
 
         dic = {"sandeep": 0, "rahul": 1, "sajan": 2, "karishma": 3, "utkarsh": 4, "aashu": 5}
