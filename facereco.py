@@ -1,4 +1,3 @@
-# from numpy import loadtxt
 from keras.models import load_model
 import numpy as np
 import time
@@ -7,7 +6,7 @@ import cv2
 import copy
 
 
-# this class is for testing
+# takeImageWindow class is for testing
 class takeImageWindow:
 
     # this function returns the image from disk.
