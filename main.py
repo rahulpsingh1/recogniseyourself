@@ -8,6 +8,10 @@ from facereco import recognise
 #from facereco import takeImageWindow as imgwin
 import time
 import cv2
+from send_email import emails
+from write2csv import csv_writer
+import uuid
+import os
 
 
 app = Flask(__name__)
@@ -16,6 +20,9 @@ vs = VideoStream(src=0).start()
 time.sleep(2.0)
 
 reco = recognise()
+mail = emails()
+csv_write = csv_writer()
+
 
 @app.route("/")
 def index():
@@ -23,7 +30,6 @@ def index():
 
 
 def generate():
-
 
 	# loop over frames from the output stream
 	while True:
@@ -46,6 +52,7 @@ def generate():
 		yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + 
 			bytearray(encodedImage) + b'\r\n')
 
+
 @app.route("/video_feed")
 def video_feed():
 
@@ -65,29 +72,36 @@ def result():
 
 		frame = cv2.imread("flaskImage.jpg")
 
-		cv2.imwrite(".\static\FinalImg.jpg", frame)
-
-
-		passframe = reco.face(frame)
+		# get face from image
+		face_frame = reco.face(frame)
 
 		try:
-			if passframe == None:
+			# if reco.face does'nt return any face then render the same page again
+			if face_frame == None:
 				flash('Cannot detect face. Kindly be steady and in front of camera and hit submit again.')
 				time.sleep(5)
-
 				return render_template("index.html")
 		except:
 			pass
 
+		# predict the preson in image
+		predicted_name = reco.prediction(face_frame)
+		predicted_name = predicted_name.lower()
 
-		
-		
-		rec = reco.prediction(passframe)
-		rec = rec.lower()
+		unique_filename = str(uuid.uuid4().hex)
+		imgLocation = ".\\static\\" + unique_filename + ".jpg"
+
+		cv2.imwrite(imgLocation, frame)
+
+		# also store passed name, time and the image location in csv file
+		csv_write.writeIntoCsv(user, imgLocation, user == predicted_name)
+
+		# if passed name and predicted name is not same then send email to admin
+		if(user!=predicted_name):
+			mail.sendEmail(imgLocation)
 
 
-
-		return render_template("result.html",name = user,pred = rec, image_name=frame)
+		return render_template("result.html",name = user,pred = predicted_name, image_name=imgLocation)
 
    
 
@@ -95,7 +109,7 @@ def result():
 if __name__ == "__main__":
 
 	# start the flask app
-
+	app.secret_key = os.urandom(24)
 	app.run(host="127.0.0.1", port=8000, debug=True, threaded=True, use_reloader=False)
 
 

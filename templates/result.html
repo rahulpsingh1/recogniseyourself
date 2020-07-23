@@ -2,8 +2,17 @@
 <html>
   <head>
     <title>Recognise Yourself</title>
+
+    <style>
+        h1 {text-align: center;color: #444;}
+        h2 {text-align: center;color: #444;}
+        .img-container {
+            text-align: center;
+        }
+    </style>
+
   </head>
-  <body>
+  <body style="background-color:powderblue;">
   	{% if pred==name %}
       <h1>Hello {{ pred }} Welcome!!!</h1>
       <h2>You May Enter</h2>
@@ -13,11 +22,9 @@
       <h2>Incorrect Name or face Given. </h2>
 
     {% endif %}
-
-    <img src="{{url_for('static', filename='FinalImg.jpg')}}"></img>
-
-    
-    
+    <div class="img-container">
+        <img src="{{image_name}}"></img>
+    </div>
   </body>
 </html>
 

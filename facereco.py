@@ -1,3 +1,4 @@
+# from numpy import loadtxt
 from keras.models import load_model
 import numpy as np
 import time
@@ -6,7 +7,7 @@ import cv2
 import copy
 
 
-# takeImageWindow class is for testing
+# this class is for testing
 class takeImageWindow:
 
     # this function returns the image from disk.
@@ -79,8 +80,17 @@ class faceblock:
         faces = face_cascade.detectMultiScale(gray, 1.3, 5)
         print("faces blocks ----------------------")
         print(faces)
+
+        # Check if no face is found then return None else continue
+        try:
+            if not faces:
+                return None
+        except:
+            pass
+
+        # Cut the face from image and return face image
         for (x, y, w, h) in faces:
-            roi_gray = gray[y:y + h, x:x + w]
+            roi_gray = gray[y-30:y + h+30, x-30:x + w+30]
 
             # resizing to make the image (128,128) for prediction
             pic = cv2.resize(roi_gray, (128, 128), interpolation=cv2.INTER_AREA)
@@ -97,19 +107,17 @@ class recognise(faceblock):
         model = load_model("./face_recognition.h5")
 
         t = model.predict(image)
-        print(t)
-        print("--------------------------------")
+
         # put a constraint to accuracy more than 60% then found else not recognisable.
         t = np.argmax(t, axis=1)
 
-        """
-        if(t*100<60):
-            return None
-        """
 
         # model is trained on these people dataset
 
         dic = {"sandeep": 0, "rahul": 1, "sajan": 2, "karishma": 3, "utkarsh": 4, "aashu": 5}
         inv_dict = {v: k for k, v in dic.items()}
+
+        print(inv_dict[t[0]])
+        print("--------------------------------")
 
         return inv_dict[t[0]]

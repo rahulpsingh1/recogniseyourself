@@ -1,23 +1,25 @@
 # for mails
 import smtplib, ssl
-from send_email import encoders
-from send_email.mime.base import MIMEBase
-from send_email.mime.multipart import MIMEMultipart
-from send_email.mime.text import MIMEText
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import base64
 
 
 # to_mail If not identified with any authorized person
-# pass image into function
-# can include data entry to a csv file
 
+class emails:
 
-class email:
-    def sendEmail(self):
-        subject = "An email with attachment from Python"
-        body = "This is an email with attachment sent from Python"
+    def sendEmail(self, imgLocation):
+
+        subject = "Un-recognised person is found"
+        body = "the underlying person is not recognised by the system. Kindly look over the image."
         sender_email = "raidenrahul1@gmail.com"
         receiver_email = "kumar.rahulsingh01@gmail.com"
-        password = "Self2Learnd&"
+
+        #base64 encoded password looks much more mysterious
+        password = base64.b64decode("cGFzc3dvcmQ=").decode("utf-8")
 
         message = MIMEMultipart()
         message["From"] = sender_email
@@ -27,7 +29,7 @@ class email:
 
         message.attach(MIMEText(body, "plain"))
 
-        filename = "flaskImage.jpg"
+        filename = imgLocation
 
         # Open image file in binary mode
         with open(filename, "rb") as attachment:
