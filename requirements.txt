@@ -1,6 +1,6 @@
 keras==2.2.5
 scikit-learn==0.22.1
-tensorflow==1.9.0
+tensorflow==1.15.2
 numpy==1.17.2
 flask==0.12.2
 imutils==0.5.3
