@@ -9,6 +9,16 @@ System trained on 6 people faces and it also contains self data collection modul
 * User interface :- Flask framework
 * Recognition system :- keras, sklearn, opencv
 * Email :- email, smtplib
+* To csv :- csv
+
+## Files
+
+* main.py :- flask based gui and the main executible file
+* Create_Img_Dataset.py :- to create image dataset
+* Convolutional_Net.ipynb :- contains the CNN model for face recognition
+* facereco.py :- capture face image and prediction of face
+* send_email.py :- module for sending email
+* write2csv.py :- save person data to csv
 
 
 ## Installation
